@@ -2,13 +2,13 @@ package com.github.crypto_monitor.client.kraken;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-@JsonDeserialize(builder = PairDto.PairDtoBuilder.class)
-public class PairDto {
+@JsonDeserialize(builder = TradingPair.TradingPairBuilder.class)
+public class TradingPair {
 
     private final String lhs;
     private final String rhs;
 
-    public PairDto(PairDtoBuilder builder) {
+    public TradingPair(TradingPairBuilder builder) {
         this.lhs = builder.lhs;
         this.rhs = builder.rhs;
     }
@@ -21,28 +21,28 @@ public class PairDto {
         return rhs;
     }
 
-    public static final class PairDtoBuilder {
+    public static final class TradingPairBuilder {
         private String lhs;
         private String rhs;
 
-        public static PairDtoBuilder builder() {
-            return new PairDtoBuilder();
+        public static TradingPairBuilder builder() {
+            return new TradingPairBuilder();
         }
 
-        private PairDtoBuilder() {}
+        private TradingPairBuilder() {}
 
-        public PairDtoBuilder withLhs(String lhs) {
+        public TradingPairBuilder withLhs(String lhs) {
             this.lhs = lhs;
             return this;
         }
 
-        public PairDtoBuilder withRhs(String rhs) {
+        public TradingPairBuilder withRhs(String rhs) {
             this.rhs = rhs;
             return this;
         }
 
-        public PairDto build() {
-            return new PairDto(this);
+        public TradingPair build() {
+            return new TradingPair(this);
         }
     }
 }

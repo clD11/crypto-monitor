@@ -5,6 +5,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class KrakenClient {
 
@@ -12,9 +14,12 @@ public class KrakenClient {
 
     private static final OkHttpClient client = new OkHttpClient();
 
-    public void ticker(TickerRequestDto tickerRequestDto) throws IOException {
+    public void ticker(List<TradingPair> tradingPairs) throws IOException {
+        String pairs = "?pair=" + tradingPairs.stream().map(tradingPair -> tradingPair.getLhs() + tradingPair.getRhs())
+                .collect(Collectors.joining(","));
+
         Request request = new Request.Builder()
-                .url("https://api.kraken.com/0/public/Ticker?pair=XBTUSD")
+                .url(apiKraken.concat(pairs))
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
