@@ -2,8 +2,8 @@ package com.github.crypto_monitor.client.kraken;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-@JsonDeserialize(builder = TickerResponseDto.TickerDtoBuilder.class)
-public class TickerResponseDto {
+@JsonDeserialize(builder = TickerInformation.TickerDtoBuilder.class)
+public class TickerInformation {
 
 //    a = ask array(<price>, <whole lot volume>, <lot volume>),
 //    b = bid array(<price>, <whole lot volume>, <lot volume>),
@@ -26,7 +26,7 @@ public class TickerResponseDto {
     private final String high;
     private final String todaysOpenPrice;
 
-    public TickerResponseDto(TickerDtoBuilder builder) {
+    public TickerInformation(TickerDtoBuilder builder) {
         this.ask = builder.ask;
         this.bid = builder.bid;
         this.lastTradeClosed = builder.lastTradeClosed;
@@ -136,8 +136,8 @@ public class TickerResponseDto {
             return this;
         }
 
-        public TickerResponseDto build() {
-            return new TickerResponseDto(this);
+        public TickerInformation build() {
+            return new TickerInformation(this);
         }
     }
 

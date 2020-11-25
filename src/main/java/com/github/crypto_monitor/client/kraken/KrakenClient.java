@@ -23,8 +23,7 @@ public class KrakenClient {
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
-            String responseBody = response.body().string();
-            System.out.println(responseBody);
+            System.out.println(response.body().string());
         }
     }
 }
