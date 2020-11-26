@@ -2,42 +2,44 @@ package com.github.crypto_monitor.client.kraken;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import java.util.List;
+
 @JsonDeserialize(builder = TradingPair.TradingPairBuilder.class)
 public class TradingPair {
 
-    private final String lhs;
-    private final String rhs;
+    private final String pair;
+    private final List<TickerInformation> tickerInformation;
 
     public TradingPair(TradingPairBuilder builder) {
-        this.lhs = builder.lhs;
-        this.rhs = builder.rhs;
+        this.pair = builder.pair;
+        this.tickerInformation = builder.tickerInformation;
     }
 
-    public String getLhs() {
-        return lhs;
+    public String getPair() {
+        return pair;
     }
 
-    public String getRhs() {
-        return rhs;
+    public List<TickerInformation> getTickerInformation() {
+        return tickerInformation;
     }
 
     public static final class TradingPairBuilder {
-        private String lhs;
-        private String rhs;
-
-        public static TradingPairBuilder builder() {
-            return new TradingPairBuilder();
-        }
+        private String pair;
+        private List<TickerInformation> tickerInformation;
 
         private TradingPairBuilder() {}
 
-        public TradingPairBuilder withLhs(String lhs) {
-            this.lhs = lhs;
+        public TradingPairBuilder builder() {
+            return new TradingPairBuilder();
+        }
+
+        public TradingPairBuilder withPair(String pair) {
+            this.pair = pair;
             return this;
         }
 
-        public TradingPairBuilder withRhs(String rhs) {
-            this.rhs = rhs;
+        public TradingPairBuilder withTickerInformation(List<TickerInformation> tickerInformation) {
+            this.tickerInformation = tickerInformation;
             return this;
         }
 
@@ -45,4 +47,5 @@ public class TradingPair {
             return new TradingPair(this);
         }
     }
+
 }

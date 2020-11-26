@@ -1,5 +1,6 @@
 package com.github.crypto_monitor.client.kraken;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @JsonDeserialize(builder = TickerInformation.TickerDtoBuilder.class)
@@ -16,14 +17,31 @@ public class TickerInformation {
 //    o = today's opening price
 
     //WIP change monetary to long once have util implemented
-    private final String ask;
-    private final String bid;
-    private final String lastTradeClosed;
-    private final String volume;
-    private final String volumeWeightedAveragePrice;
-    private final String numberOfTrades;
-    private final String low;
-    private final String high;
+    @JsonProperty("a")
+    private final String[] ask;
+
+    @JsonProperty("b")
+    private final String[] bid;
+
+    @JsonProperty("c")
+    private final String[] lastTradeClosed;
+
+    @JsonProperty("v")
+    private final String[] volume;
+
+    @JsonProperty("p")
+    private final String[] volumeWeightedAveragePrice;
+
+    @JsonProperty("t")
+    private final String[] numberOfTrades;
+
+    @JsonProperty("l")
+    private final String[] low;
+
+    @JsonProperty("h")
+    private final String[] high;
+
+    @JsonProperty("o")
     private final String todaysOpenPrice;
 
     public TickerInformation(TickerDtoBuilder builder) {
@@ -38,35 +56,35 @@ public class TickerInformation {
         this.todaysOpenPrice = builder.todaysOpenPrice;
     }
 
-    public String getAsk() {
+    public String[] getAsk() {
         return ask;
     }
 
-    public String getBid() {
+    public String[] getBid() {
         return bid;
     }
 
-    public String getLastTradeClosed() {
+    public String[] getLastTradeClosed() {
         return lastTradeClosed;
     }
 
-    public String getVolume() {
+    public String[] getVolume() {
         return volume;
     }
 
-    public String getVolumeWeightedAveragePrice() {
+    public String[] getVolumeWeightedAveragePrice() {
         return volumeWeightedAveragePrice;
     }
 
-    public String getNumberOfTrades() {
+    public String[] getNumberOfTrades() {
         return numberOfTrades;
     }
 
-    public String getLow() {
+    public String[] getLow() {
         return low;
     }
 
-    public String getHigh() {
+    public String[] getHigh() {
         return high;
     }
 
@@ -75,14 +93,14 @@ public class TickerInformation {
     }
 
     public static final class TickerDtoBuilder {
-        private String ask;
-        private String bid;
-        private String lastTradeClosed;
-        private String volume;
-        private String volumeWeightedAveragePrice;
-        private String numberOfTrades;
-        private String low;
-        private String high;
+        private String[] ask;
+        private String[] bid;
+        private String[] lastTradeClosed;
+        private String[] volume;
+        private String[] volumeWeightedAveragePrice;
+        private String[] numberOfTrades;
+        private String[] low;
+        private String[] high;
         private String todaysOpenPrice;
 
         private TickerDtoBuilder() {}
@@ -91,42 +109,42 @@ public class TickerInformation {
             return new TickerDtoBuilder();
         }
 
-        public TickerDtoBuilder withAsk(String ask) {
+        public TickerDtoBuilder withAsk(String[] ask) {
             this.ask = ask;
             return this;
         }
 
-        public TickerDtoBuilder withBid(String bid) {
+        public TickerDtoBuilder withBid(String[] bid) {
             this.bid = bid;
             return this;
         }
 
-        public TickerDtoBuilder withLastTradeClosed(String lastTradeClosed) {
+        public TickerDtoBuilder withLastTradeClosed(String[] astTradeClosed) {
             this.lastTradeClosed = lastTradeClosed;
             return this;
         }
 
-        public TickerDtoBuilder withVolume(String volume) {
+        public TickerDtoBuilder withVolume(String[] volume) {
             this.volume = volume;
             return this;
         }
 
-        public TickerDtoBuilder withVolumeWeightedAveragePrice(String volumeWeightedAveragePrice) {
+        public TickerDtoBuilder withVolumeWeightedAveragePrice(String[] volumeWeightedAveragePrice) {
             this.volumeWeightedAveragePrice = volumeWeightedAveragePrice;
             return this;
         }
 
-        public TickerDtoBuilder withNumberOfTrades(String numberOfTrades) {
+        public TickerDtoBuilder withNumberOfTrades(String[] numberOfTrades) {
             this.numberOfTrades = numberOfTrades;
             return this;
         }
 
-        public TickerDtoBuilder withLow(String low) {
+        public TickerDtoBuilder withLow(String[] low) {
             this.low = low;
             return this;
         }
 
-        public TickerDtoBuilder withHigh(String high) {
+        public TickerDtoBuilder withHigh(String[] high) {
             this.high = high;
             return this;
         }
