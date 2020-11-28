@@ -1,6 +1,8 @@
-package com.github.crypto_monitor.client.kraken;
+package com.github.crypto_monitor.serialization;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class CustomSerializer {
@@ -13,6 +15,14 @@ public class CustomSerializer {
 
     public <T> T readValue(String jsonContent, Class<T> valueType) throws JsonProcessingException {
         return objectMapper.readValue(jsonContent, valueType);
+    }
+
+    public <T> T readValue(JsonNode jsonContent, TypeReference<T> valueType) throws JsonProcessingException {
+        return objectMapper.readValue(jsonContent.toString(), valueType);
+    }
+
+    public JsonNode readTree(String content) throws JsonProcessingException {
+        return objectMapper.readTree(content);
     }
 
 }

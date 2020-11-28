@@ -3,20 +3,12 @@ package com.github.crypto_monitor.client.kraken;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 @JsonDeserialize(builder = TickerInformation.TickerDtoBuilder.class)
 public class TickerInformation {
 
-//    a = ask array(<price>, <whole lot volume>, <lot volume>),
-//    b = bid array(<price>, <whole lot volume>, <lot volume>),
-//    c = last trade closed array(<price>, <lot volume>),
-//    v = volume array(<today>, <last 24 hours>),
-//    p = volume weighted average price array(<today>, <last 24 hours>),
-//    t = number of trades array(<today>, <last 24 hours>),
-//    l = low array(<today>, <last 24 hours>),
-//    h = high array(<today>, <last 24 hours>),
-//    o = today's opening price
-
-    //WIP change monetary to long once have util implemented
     @JsonProperty("a")
     private final String[] ask;
 
@@ -92,15 +84,62 @@ public class TickerInformation {
         return todaysOpenPrice;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TickerInformation that = (TickerInformation) o;
+        return Arrays.equals(ask, that.ask) &&
+                Arrays.equals(bid, that.bid) &&
+                Arrays.equals(lastTradeClosed, that.lastTradeClosed) &&
+                Arrays.equals(volume, that.volume) &&
+                Arrays.equals(volumeWeightedAveragePrice, that.volumeWeightedAveragePrice) &&
+                Arrays.equals(numberOfTrades, that.numberOfTrades) &&
+                Arrays.equals(low, that.low) &&
+                Arrays.equals(high, that.high) &&
+                Objects.equals(todaysOpenPrice, that.todaysOpenPrice);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(todaysOpenPrice);
+        result = 31 * result + Arrays.hashCode(ask);
+        result = 31 * result + Arrays.hashCode(bid);
+        result = 31 * result + Arrays.hashCode(lastTradeClosed);
+        result = 31 * result + Arrays.hashCode(volume);
+        result = 31 * result + Arrays.hashCode(volumeWeightedAveragePrice);
+        result = 31 * result + Arrays.hashCode(numberOfTrades);
+        result = 31 * result + Arrays.hashCode(low);
+        result = 31 * result + Arrays.hashCode(high);
+        return result;
+    }
+
     public static final class TickerDtoBuilder {
+        @JsonProperty("a")
         private String[] ask;
+
+        @JsonProperty("b")
         private String[] bid;
+
+        @JsonProperty("c")
         private String[] lastTradeClosed;
+
+        @JsonProperty("v")
         private String[] volume;
+
+        @JsonProperty("p")
         private String[] volumeWeightedAveragePrice;
+
+        @JsonProperty("t")
         private String[] numberOfTrades;
+
+        @JsonProperty("l")
         private String[] low;
+
+        @JsonProperty("h")
         private String[] high;
+
+        @JsonProperty("o")
         private String todaysOpenPrice;
 
         private TickerDtoBuilder() {}

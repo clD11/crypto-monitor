@@ -2,9 +2,11 @@ package com.github.crypto_monitor;
 
 import com.github.crypto_monitor.client.kraken.KrakenClient;
 import com.github.crypto_monitor.client.kraken.Pair;
+import com.github.crypto_monitor.client.kraken.TickerInformation;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 public class CryptoMonitorApplication {
 
@@ -21,7 +23,7 @@ public class CryptoMonitorApplication {
 //                .withRhs("USD")
 //                .build();
 
-        client.ticker(List.of(XBTUSD));
+        Map<String, TickerInformation> tickerInformation = client.ticker(List.of(XBTUSD));
     }
 
 }

@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-@JsonDeserialize(builder = KrakenResponse.KrakenResponseBuilder.class)
-public class KrakenResponse {
+@JsonDeserialize(builder = KrakenResponseWrapper.KrakenResponseBuilder.class)
+public class KrakenResponseWrapper {
 
     @JsonProperty("result")
     private final JsonNode result;
@@ -13,7 +13,7 @@ public class KrakenResponse {
     @JsonProperty("error")
     private final String[] error;
 
-    public KrakenResponse(KrakenResponseBuilder builder) {
+    public KrakenResponseWrapper(KrakenResponseBuilder builder) {
         this.result = builder.result;
         this.error = builder.error;
     }
@@ -46,8 +46,8 @@ public class KrakenResponse {
             return this;
         }
 
-        public KrakenResponse build() {
-            return new KrakenResponse(this);
+        public KrakenResponseWrapper build() {
+            return new KrakenResponseWrapper(this);
         }
     }
 
