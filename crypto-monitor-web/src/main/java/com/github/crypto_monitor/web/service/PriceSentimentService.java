@@ -21,6 +21,10 @@ public class PriceSentimentService {
     }
 
     public Map<String, TickerInformation> getPriceSentiment(List<AssetPair> assetPairs) throws IOException {
+
+        // get current time UK
+        // get price and time for asserts
+        // rturn
         return krakenClient.ticker(assetPairs);
     }
 

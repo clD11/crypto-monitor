@@ -22,17 +22,19 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class PriceSentimentResource {
 
     private final PriceSentimentService priceSentimentService;
-    private final PriceSentimentMapper priceSentimentMapper = new PriceSentimentMapper();
+    private final PriceSentimentMapper priceSentimentMapper;
 
     @Autowired
-    public PriceSentimentResource(PriceSentimentService priceSentimentService) {
+    public PriceSentimentResource(PriceSentimentService priceSentimentService, PriceSentimentMapper priceSentimentMapper) {
         this.priceSentimentService = priceSentimentService;
+        this.priceSentimentMapper = priceSentimentMapper;
     }
 
     @GetMapping(produces = { APPLICATION_JSON_VALUE })
-    ResponseEntity<Map<String, TickerInformation>> getPriceSentiment(@RequestParam(name = "assetpairs") List<String> query) throws IOException {
+    ResponseEntity<List<AssetPriceDto>> getPriceSentiment(@RequestParam(name = "assetpairs") List<String> query) throws IOException {
         List<AssetPair> assetPairs = priceSentimentMapper.mapToAssertPairs(query);
-        Map<String, TickerInformation> response = priceSentimentService.getPriceSentiment(assetPairs);
+        Map<String, TickerInformation> assertPairsToTickerInformation = priceSentimentService.getPriceSentiment(assetPairs);
+        List<AssetPriceDto> response = priceSentimentMapper.mapToAssetPrice(assertPairsToTickerInformation);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

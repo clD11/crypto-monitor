@@ -1,10 +1,16 @@
 package com.github.crypto_monitor.web.resource;
 
 import com.github.crypto_monitor.web.client.kraken.AssetPair;
+import com.github.crypto_monitor.web.client.kraken.TickerInformation;
+import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
+@Component
 public class PriceSentimentMapper {
 
     public List<AssetPair> mapToAssertPairs(List<String> assertPairs) {
@@ -16,4 +22,16 @@ public class PriceSentimentMapper {
                 .collect(Collectors.toList());
     }
 
+    public List<AssetPriceDto> mapToAssetPrice(Map<String, TickerInformation> assetPairTickerInformation) {
+        List<AssetPriceDto> assetPriceDtos = new ArrayList<>();
+        for (String key : assetPairTickerInformation.keySet()) {
+            assetPriceDtos.add(AssetPriceDto.AssetPriceBuilder.builder()
+                    .withAsset(key)
+                    .withAskPrice(assetPairTickerInformation.get(key).getAsk()[0])
+                    .withLocalDateTime(LocalDateTime.now())
+                    .build()
+            );
+        }
+        return assetPriceDtos;
+    }
 }
