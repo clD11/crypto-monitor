@@ -37,5 +37,4 @@ public class PriceSentimentResource {
         List<AssetPriceDto> response = priceSentimentMapper.mapToAssetPrice(assertPairsToTickerInformation);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
 }
