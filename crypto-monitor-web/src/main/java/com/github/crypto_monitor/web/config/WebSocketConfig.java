@@ -8,16 +8,19 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 
 @Configuration
 @EnableWebSocketMessageBroker
-public class WenSocketConfig implements WebSocketMessageBrokerConfigurer {
+public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/topic");
-        config.setApplicationDestinationPrefixes("/crypto-monitor");
+        config.setApplicationDestinationPrefixes("/app");
+        config.enableSimpleBroker("/topic/tracker", "/queue/");
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("crypto-monitor-ws");
+        registry.addEndpoint("ws-crypto-monitor")
+                .setAllowedOrigins("http://localhost:3000")
+                .withSockJS();
     }
+
 }

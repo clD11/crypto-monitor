@@ -16,7 +16,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.headers().cacheControl();
         httpSecurity.csrf().disable();
         httpSecurity.authorizeRequests()
-                .antMatchers("**/**").permitAll();
+                .antMatchers("**/**").permitAll()
+                .antMatchers("topic/**").permitAll();
     }
 
 }
