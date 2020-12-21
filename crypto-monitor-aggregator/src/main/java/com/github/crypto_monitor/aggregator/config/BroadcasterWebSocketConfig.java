@@ -9,10 +9,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class BroadcasterConfig {
+public class BroadcasterWebSocketConfig {
 
-    @Bean(name = "broadcasterWebsocket")
-    public WebSocket broadcasterWebsocket(@Value("${broadcaster.ws-root-url}") String broadcasterWsRootUrl,
+    @Bean(name = "broadcasterWebSocket")
+    public WebSocket broadcasterWebSocket(@Value("${broadcaster.websocket.url}") String broadcasterWsRootUrl,
                                           BroadcasterWebSocketListener broadcasterWebSocketListener) {
         OkHttpClient okHttpClient = new OkHttpClient();
         Request request = new Request.Builder().url(broadcasterWsRootUrl).build();

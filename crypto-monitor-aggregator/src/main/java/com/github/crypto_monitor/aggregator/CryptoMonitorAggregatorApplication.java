@@ -9,10 +9,10 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 
 @SpringBootApplication(scanBasePackages = "com.github.crypto_monitor", exclude = { DataSourceAutoConfiguration.class,
         HibernateJpaAutoConfiguration.class, DataSourceTransactionManagerAutoConfiguration.class })
-public class CryptoMonitorApplication extends SpringBootServletInitializer {
+public class CryptoMonitorAggregatorApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
-        SpringApplication.run(CryptoMonitorApplication.class);
+        SpringApplication.run(CryptoMonitorAggregatorApplication.class);
     }
 
 }

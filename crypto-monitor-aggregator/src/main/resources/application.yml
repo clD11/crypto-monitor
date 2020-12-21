@@ -2,12 +2,9 @@ server:
   port : 8080
 
 broadcaster:
-  ws-root-url: "ws://localhost:8081/ws-crypto-monitor-broadcaster/websocket"
+  websocket:
+    url: "ws://localhost:8081/ws-crypto-monitor-broadcaster/websocket"
 
 kraken:
-  root-url: "https://api.kraken.com/0/public/"
-  api:
-    key: "test-2893289y34992nvo389h4rf89h"
-    sign: "test-nvjnvkdfjv90uf8hni890n"
-  web-socket:
-    wss-token-url: "https://api.kraken.com/0/private/GetWebSocketsToken"
+  websocket:
+    url: "ws://ws.kraken.com"

@@ -1,4 +1,4 @@
-package com.github.crypto_monitor.aggregator.client.kraken;
+package com.github.crypto_monitor.aggregator.client.kraken.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;

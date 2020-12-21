@@ -1,6 +1,6 @@
 package com.github.crypto_monitor.aggregator;
 
-import com.github.crypto_monitor.aggregator.client.kraken.AssetPair;
+import com.github.crypto_monitor.aggregator.client.kraken.dto.AssetPair;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

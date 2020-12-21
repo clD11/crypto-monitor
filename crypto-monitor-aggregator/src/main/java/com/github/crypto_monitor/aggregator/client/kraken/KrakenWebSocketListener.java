@@ -1,32 +1,33 @@
 package com.github.crypto_monitor.aggregator.client.kraken;
 
+import com.github.crypto_monitor.aggregator.service.BasicQueue;
 import okhttp3.Response;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 import okio.ByteString;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class KrakenWebSocketListener extends WebSocketListener {
 
-    private final String payload = "{\n" +
-            "  \"event\": \"subscribe\",\n" +
-            "  \"pair\": [\n" +
-            "    \"XBT/USD\",\n" +
-            "    \"XBT/EUR\"\n" +
-            "  ],\n" +
-            "  \"subscription\": {\n" +
-            "    \"name\": \"ticker\"\n" +
-            "  }\n" +
-            "}";
+    private final BasicQueue basicQueue;
+
+    @Autowired
+    public KrakenWebSocketListener(BasicQueue basicQueue) {
+        this.basicQueue = basicQueue;
+    }
 
     @Override
     public void onOpen(WebSocket webSocket, Response response) {
-        webSocket.send(payload);
+        System.out.println("Connection Opened");
     }
 
     @Override
     public void onMessage(WebSocket webSocket, String text) {
         System.out.println("Received");
         System.out.println(text);
+        basicQueue.add(text);
     }
 
     @Override

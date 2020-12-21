@@ -1,4 +1,4 @@
-package com.github.crypto_monitor.aggregator.client.kraken;
+package com.github.crypto_monitor.aggregator.client.kraken.dto;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;

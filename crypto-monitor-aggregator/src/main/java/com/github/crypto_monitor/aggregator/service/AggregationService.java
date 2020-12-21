@@ -1,33 +1,54 @@
 package com.github.crypto_monitor.aggregator.service;
 
-import com.github.crypto_monitor.aggregator.client.broadcaster.BroadcasterClient;
-import com.github.crypto_monitor.aggregator.client.kraken.AssetPair;
-import com.github.crypto_monitor.aggregator.client.kraken.KrakenClient;
-import com.github.crypto_monitor.aggregator.client.kraken.TickerInformation;
+import com.github.crypto_monitor.aggregator.client.broadcaster.BroadcasterWebSocketClient;
+import com.github.crypto_monitor.aggregator.client.kraken.KrakenWebSocketClient;
 import com.github.crypto_monitor.aggregator.client.twitter.TwitterClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Component
 public class AggregationService {
 
-    private final KrakenClient krakenClient;
+    private static final String EVENT = "{\n" +
+            "  \"event\": \"subscribe\",\n" +
+            "  \"pair\": [\n" +
+            "    \"XBT/USD\",\n" +
+            "    \"XBT/EUR\"\n" +
+            "  ],\n" +
+            "  \"subscription\": {\n" +
+            "    \"name\": \"ticker\"\n" +
+            "  }\n" +
+            "}";
+
+    private static final AtomicBoolean run = new AtomicBoolean(false);
+
+    private final KrakenWebSocketClient krakenWebSocketClient;
     private final TwitterClient twitterClient;
-    private final BroadcasterClient broadcasterClient;
+    private final BroadcasterWebSocketClient broadcasterWebSocketClient;
+    private final BasicQueue basicQueue;
 
     @Autowired
-    public AggregationService(KrakenClient krakenClient, TwitterClient twitterClient, BroadcasterClient broadcasterClient) {
-        this.krakenClient = krakenClient;
+    public AggregationService(KrakenWebSocketClient krakenWebSocketClient, TwitterClient twitterClient,
+                              BroadcasterWebSocketClient broadcasterWebSocketClient, BasicQueue basicQueue) {
+        this.krakenWebSocketClient = krakenWebSocketClient;
         this.twitterClient = twitterClient;
-        this.broadcasterClient = broadcasterClient;
+        this.broadcasterWebSocketClient = broadcasterWebSocketClient;
+        this.basicQueue = basicQueue;
     }
 
-    public Map<String, TickerInformation> getPriceSentiment(List<AssetPair> assetPairs) throws IOException {
-        return krakenClient.ticker(assetPairs);
+    public void start() {
+        krakenWebSocketClient.send(EVENT);
+        run.compareAndExchange(false, true);
+
+        while (run.get()) {
+            System.out.println(basicQueue.take());
+        }
+    }
+
+    public void stop() {
+        run.compareAndExchange(true, false);
     }
 
 }
