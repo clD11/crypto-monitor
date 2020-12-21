@@ -11,7 +11,8 @@
 
     <modules>
         <module>crypto-monitor-integration-test</module>
-        <module>crypto-monitor-web</module>
+        <module>crypto-monitor-aggregator</module>
+        <module>crypto-monitor-broadcaster</module>
     </modules>
 
     <properties>
