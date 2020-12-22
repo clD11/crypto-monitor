@@ -25,8 +25,6 @@ public class KrakenWebSocketListener extends WebSocketListener {
 
     @Override
     public void onMessage(WebSocket webSocket, String text) {
-        System.out.println("Received");
-        System.out.println(text);
         basicQueue.add(text);
     }
 

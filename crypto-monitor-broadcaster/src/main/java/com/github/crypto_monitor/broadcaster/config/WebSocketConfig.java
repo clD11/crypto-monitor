@@ -19,8 +19,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("ws-crypto-monitor-broadcaster")
-//                .setAllowedOrigins("http://localhost:3000")
-                .setAllowedOrigins("http://localhost:8080")
+                .setAllowedOrigins("http://localhost:3000", "http://localhost:8080")
                 .withSockJS();
     }
 

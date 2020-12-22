@@ -1,6 +1,6 @@
 package com.github.crypto_monitor.aggregator.service;
 
-import com.github.crypto_monitor.aggregator.client.broadcaster.BroadcasterWebSocketClient;
+import com.github.crypto_monitor.aggregator.client.broadcaster.BroadcasterWebSocketStompClient;
 import com.github.crypto_monitor.aggregator.client.kraken.KrakenWebSocketClient;
 import com.github.crypto_monitor.aggregator.client.twitter.TwitterClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,15 +26,15 @@ public class AggregationService {
 
     private final KrakenWebSocketClient krakenWebSocketClient;
     private final TwitterClient twitterClient;
-    private final BroadcasterWebSocketClient broadcasterWebSocketClient;
+    private final BroadcasterWebSocketStompClient broadcasterWebSocketStompClient;
     private final BasicQueue basicQueue;
 
     @Autowired
     public AggregationService(KrakenWebSocketClient krakenWebSocketClient, TwitterClient twitterClient,
-                              BroadcasterWebSocketClient broadcasterWebSocketClient, BasicQueue basicQueue) {
+                              BroadcasterWebSocketStompClient broadcasterWebSocketStompClient, BasicQueue basicQueue) {
         this.krakenWebSocketClient = krakenWebSocketClient;
         this.twitterClient = twitterClient;
-        this.broadcasterWebSocketClient = broadcasterWebSocketClient;
+        this.broadcasterWebSocketStompClient = broadcasterWebSocketStompClient;
         this.basicQueue = basicQueue;
     }
 
@@ -43,7 +43,7 @@ public class AggregationService {
         run.compareAndExchange(false, true);
 
         while (run.get()) {
-            System.out.println(basicQueue.take());
+            //broadcasterWebSocketStompClient.(basicQueue.take());
         }
     }
 
